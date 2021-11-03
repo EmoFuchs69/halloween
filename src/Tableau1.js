@@ -13,11 +13,26 @@ class Tableau1 extends Phaser.Scene{
 
         //bg 1 (gris légèrement flou)
         this.load.image('bg1-terrain-3', 'assets/level/background-1/bg-terrain-3.png');
+        this.load.image('bg1-tree-3', 'assets/level/background-1/bg-three-3.png');
+        this.load.image('bg1-tree-1', 'assets/level/background-1/bg-tree-1.png');
+        this.load.image('bg1-terrain-1', 'assets/level/background-1/bg-terrain-1.png');
+        this.load.image('bg1-grass-5', 'assets/level/background-1/bg-grass-5.png');
+
+
 
         //ground (premier plan noir)
         this.load.image('gMid', 'assets/level/ground/g-mid.png');
         this.load.image('gRight', 'assets/level/ground/g-right.png');
         this.load.image('gTree1', 'assets/level/ground/g-tree-1.png');
+        this.load.image('gMushroom1', 'assets/level/ground/g-mushroom1.png');
+        this.load.image('gleft', 'assets/level/ground/g-left.png');
+        this.load.image('gbigstone', 'assets/level/ground/g-big-stone.png');
+        this.load.image('gstone3', 'assets/level/ground/g-stone-3.png');
+        this.load.image('gbox2', 'assets/level/ground/g-box-2.png');
+        this.load.image('gwoodenbridge', 'assets/level/ground/g-wooden-bridge.png');
+        this.load.image('gwater', 'assets/level/ground/g-water.png');
+        this.load.image('gtree2', 'assets/level/ground/g-tree-2.png');
+
 
         //au lieu d'écrire 5 lignes quasi identiques, on charge l'herbe avec une boucle
         // ALGO : ceci est une boucle
@@ -76,13 +91,18 @@ class Tableau1 extends Phaser.Scene{
          * contient tous les éléments du background 1 (gris)
          * @type {Phaser.GameObjects.Container}
          */
-        this.bg1Container=this.add.container(0,0);
+        this.bg1Container=this.add.container(-150,0);
         /**
          * Terrain
          * @type {Phaser.GameObjects.Image}
          */
+
         let bg1Terrain3=this.add.image(-300,200, 'bg1-terrain-3').setOrigin(0,0);
         this.bg1Container.add(bg1Terrain3);
+
+        let bgtree1=this.add.image(600,350, 'bg1-tree-1').setOrigin(0,1);
+        bgtree1.setTintFill
+        this.bg1Container.add(bgtree1);
 
         //-------------ground (premier plan noir)---------------------------
 
@@ -90,18 +110,57 @@ class Tableau1 extends Phaser.Scene{
          * contient tous les éléments du premier plan (noir)
          * @type {Phaser.GameObjects.Container}
          */
-        this.groundContainer=this.add.container(0,0);
+        this.groundContainer=this.add.container(-150,20);
+
         /**
          * Arbre
          * @type {Phaser.GameObjects.Image}
          */
-        let tree1=this.add.image(300,350, 'gTree1').setOrigin(0,1);
-        tree1.setTintFill(0xFF0000); // pratique pour dbugger
+        let tree1=this.add.image(1000,390, 'gTree1').setOrigin(0,1);
+        tree1.setTintFill //(0xFF0000); // pratique pour dbugger
         this.groundContainer.add(tree1);
+        tree1.flipX=true
+        tree1.angle=-10
+        tree1.setScale(0.9)
+
         /**
          * Terrain 1
          * @type {Phaser.GameObjects.Image}
          */
+        let mushroom1=this.add.image(280,350, 'gMushroom1').setOrigin(0,1);
+        mushroom1.setTintFill;
+        this.groundContainer.add(mushroom1);
+        mushroom1.flipX=true;
+
+        let bridge=this.add.image(580,390, 'gwoodenbridge').setOrigin(0,1);
+        bridge.setTintFill;
+        this.groundContainer.add(bridge);
+        bridge.setScale(0.7)
+        let bstone=this.add.image(420,550, 'gbigstone').setOrigin(0,1);
+        bstone.setTintFill;
+        this.groundContainer.add(bstone);
+        bstone.setScale(0.8)
+        let tree2=this.add.image(400,450, 'gtree2').setOrigin(0,1);
+        tree2.setTintFill
+        this.groundContainer.add(tree2);
+        let treee2=this.add.image(150,430, 'gtree2').setOrigin(0,1);
+        treee2.setTintFill
+        this.groundContainer.add(treee2);
+        treee2.flipX=true;
+        let box=this.add.image(655,357, 'gbox2').setOrigin(0,1);
+        box.setTintFill
+        this.groundContainer.add(box);
+        box.setScale(0.6)
+        box.angle=5
+        let left=this.add.image(900,750, 'gleft').setOrigin(0,1);
+        left.setTintFill
+        this.groundContainer.add(left);
+        let water=this.add.image(530,630, 'gwater').setOrigin(0,1);
+        water.setTintFill
+        this.groundContainer.add(water);
+
+
+
         //ici on va calculer les positions
         let gMid1=this.add.image(0,350, 'gMid').setOrigin(0,0);
         this.groundContainer.add(gMid1);
@@ -165,6 +224,7 @@ class Tableau1 extends Phaser.Scene{
         this.bg2Container.scrollFactorX=0.2;
         this.bg1Container.scrollFactorX=0.4;
         this.groundContainer.scrollFactorX=1;
+
     }
     /**
      * Définit ce qui se passe quand on appuie ou relache une touche du clavier
