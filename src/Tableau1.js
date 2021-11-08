@@ -10,13 +10,18 @@ class Tableau1 extends Phaser.Scene{
         //bg 2 (tout au fond et très flou)
         this.load.image('bg2-terrain-2', 'assets/level/background-2/bg2-terrain-2.png');
         this.load.image('bg2-tree-2', 'assets/level/background-2/bg2-tree-2.png');
+        this.load.image('bg2-terrain-1', 'assets/level/background-2/bg2-terrain-1.png');
+        this.load.image('bg2-tree-3', 'assets/level/background-2/bg2-tree-3.png');
 
         //bg 1 (gris légèrement flou)
         this.load.image('bg1-terrain-3', 'assets/level/background-1/bg-terrain-3.png');
-        this.load.image('bg1-tree-3', 'assets/level/background-1/bg-three-3.png');
+        this.load.image('bg1-tree-3', 'assets/level/background-1/bg-tree-3.png');
         this.load.image('bg1-tree-1', 'assets/level/background-1/bg-tree-1.png');
         this.load.image('bg1-terrain-1', 'assets/level/background-1/bg-terrain-1.png');
         this.load.image('bg1-grass-5', 'assets/level/background-1/bg-grass-5.png');
+        this.load.image('bg1-tree-2', 'assets/level/background-1/bg-tree-2.png');
+        this.load.image('bg1-stone-1', 'assets/level/background-1/bg-stone-1.png');
+
 
 
 
@@ -27,12 +32,16 @@ class Tableau1 extends Phaser.Scene{
         this.load.image('gMushroom1', 'assets/level/ground/g-mushroom1.png');
         this.load.image('gleft', 'assets/level/ground/g-left.png');
         this.load.image('gbigstone', 'assets/level/ground/g-big-stone.png');
-        this.load.image('gstone3', 'assets/level/ground/g-stone-3.png');
+        this.load.image('gstone1', 'assets/level/ground/g-stone-1.png');
         this.load.image('gbox2', 'assets/level/ground/g-box-2.png');
         this.load.image('gwoodenbridge', 'assets/level/ground/g-wooden-bridge.png');
         this.load.image('gwater', 'assets/level/ground/g-water.png');
         this.load.image('gtree2', 'assets/level/ground/g-tree-2.png');
+        this.load.image('gspike1', 'assets/level/ground/g-spike-1.png');
 
+        this.load.image('gvinea', 'assets/level/ground/g-vine-a.png');
+        this.load.image('gvineb', 'assets/level/ground/g-vine-b.png');
+        this.load.image('gvinec', 'assets/level/ground/g-vine-c.png');
 
         //au lieu d'écrire 5 lignes quasi identiques, on charge l'herbe avec une boucle
         // ALGO : ceci est une boucle
@@ -41,14 +50,20 @@ class Tableau1 extends Phaser.Scene{
         }
 
         //filtre film TODO élève : faire une boucle à la place des 3 lignes qui suivent
-        this.load.image('filterFilm1', 'assets/level/filters/film/frame-1.png');
-        this.load.image('filterFilm2', 'assets/level/filters/film/frame-2.png');
-        this.load.image('filterFilm3', 'assets/level/filters/film/frame-3.png');
+        ///this.load.image('filterFilm1', 'assets/level/filters/film/frame-1.png');
+        ///this.load.image('filterFilm2', 'assets/level/filters/film/frame-2.png');
+        ///this.load.image('filterFilm3', 'assets/level/filters/film/frame-3.png');
+        for(let i=1;i<=3;i++) {
+            this.load.image('filterFilm'+i, 'assets/level/filters/film/frame-'+i+'.png');
+        }
 
         //texture au fond  TODO élève : faire une boucle pour charger les 3 images et démontrer par la même que vous savez aller au plus simple
-        this.load.image('bg-animation-a', 'assets/level/background-2/bg-animation/bg-animation-a.png');
-
+        ///this.load.image('bg-animation-a', 'assets/level/background-2/bg-animation/bg-animation-a.png');
+        for(let i=1;i<=3;i++) {
+            this.load.image('bg-animation-'+i, 'assets/level/background-2/bg-animation/bg-animation-'+i+'.png');
+        }
     }
+
 
     /**
      * Crée la scène
@@ -81,9 +96,23 @@ class Tableau1 extends Phaser.Scene{
          * Arbre dans bg2
          * @type {Phaser.GameObjects.Image}
          */
-        let bg2Tree2=this.add.image(400,-50, 'bg2-tree-2').setOrigin(0,0);
+        let bg2Tree2=this.add.image(400,-70, 'bg2-tree-2').setOrigin(0,0);
         this.bg2Container.add(bg2Tree2);
-        bg2Tree2.angle=-5; //pencher l'arbre de -5 degrès
+        bg2Tree2.setScale(0.6)
+        // bg2Tree2.angle=-5 pencher l'arbre de -5 degrès
+        let bg2terrain1=this.add.image(720,300, 'bg2-terrain-1').setOrigin(0,0);
+        this.bg2Container.add(bg2terrain1);
+        bg2terrain1.setScale(0.4)
+        bg2terrain1.angle=-40
+        let bg2tree3=this.add.image(710,-20, 'bg2-tree-3').setOrigin(0,0);
+        this.bg2Container.add(bg2tree3);
+        bg2tree3.setScale(0.6)
+        bg2tree3.angle=-15
+
+
+
+
+
 
         //--------------background 1 (gris) --------------------
 
@@ -91,18 +120,52 @@ class Tableau1 extends Phaser.Scene{
          * contient tous les éléments du background 1 (gris)
          * @type {Phaser.GameObjects.Container}
          */
-        this.bg1Container=this.add.container(-150,0);
+        this.bg1Container=this.add.container(-120,0);
         /**
          * Terrain
          * @type {Phaser.GameObjects.Image}
          */
 
-        let bg1Terrain3=this.add.image(-300,200, 'bg1-terrain-3').setOrigin(0,0);
+        let bg1Terrain3=this.add.image(-270,200, 'bg1-terrain-3').setOrigin(0,0);
         this.bg1Container.add(bg1Terrain3);
 
-        let bgtree1=this.add.image(600,350, 'bg1-tree-1').setOrigin(0,1);
+        let bgtree1=this.add.image(90,350, 'bg1-tree-1').setOrigin(0,1);
         bgtree1.setTintFill
         this.bg1Container.add(bgtree1);
+        bgtree1.setScale(0.6)
+        let bgtree3=this.add.image(315,290, 'bg1-tree-3').setOrigin(0,1);
+        bgtree3.setTintFill
+        this.bg1Container.add(bgtree3);
+        bgtree3.setScale(0.6)
+        let bg1terrain1=this.add.image(790,534, 'bg1-terrain-1').setOrigin(0,1);
+        bg1terrain1.setTintFill
+        this.bg1Container.add(bg1terrain1);
+        bg1terrain1.setScale(0.5)
+
+        let bggrass5=this.add.image(740,490, 'bg1-grass-5').setOrigin(0,1);
+        bggrass5.setTintFill
+        this.bg1Container.add(bggrass5);
+        bggrass5.angle=-10
+        bggrass5.setScale(0.7)
+
+        let bgtree2=this.add.image(1010,310, 'bg1-tree-2').setOrigin(0,1);
+        bgtree2.setTintFill
+        this.bg1Container.add(bgtree2);
+        bgtree2.setScale(0.6)
+        bgtree2.flipX=true
+        let bgstone1=this.add.image(610,615, 'bg1-stone-1').setOrigin(0,1);
+        bgstone1.setTintFill
+        this.bg1Container.add(bgstone1);
+        bgstone1.setScale(7)
+
+        let bgtreee2=this.add.image(900,610, 'bg1-tree-2').setOrigin(0,1);
+        bgtreee2.setTintFill
+        this.bg1Container.add(bgtree1);
+        bgtreee2.setScale(0.6)
+        bgtreee2.flipY=true
+
+
+
 
         //-------------ground (premier plan noir)---------------------------
 
@@ -110,24 +173,24 @@ class Tableau1 extends Phaser.Scene{
          * contient tous les éléments du premier plan (noir)
          * @type {Phaser.GameObjects.Container}
          */
-        this.groundContainer=this.add.container(-150,20);
+        this.groundContainer=this.add.container(-100,20);
 
         /**
          * Arbre
          * @type {Phaser.GameObjects.Image}
          */
-        let tree1=this.add.image(1000,390, 'gTree1').setOrigin(0,1);
+        let tree1=this.add.image(1000,390, 'gTree1').setOrigin(0.4,1.03);
         tree1.setTintFill //(0xFF0000); // pratique pour dbugger
         this.groundContainer.add(tree1);
         tree1.flipX=true
-        tree1.angle=-10
+        tree1.angle=-7
         tree1.setScale(0.9)
 
         /**
          * Terrain 1
          * @type {Phaser.GameObjects.Image}
          */
-        let mushroom1=this.add.image(280,350, 'gMushroom1').setOrigin(0,1);
+        let mushroom1=this.add.image(250,356, 'gMushroom1').setOrigin(0,1);
         mushroom1.setTintFill;
         this.groundContainer.add(mushroom1);
         mushroom1.flipX=true;
@@ -140,13 +203,17 @@ class Tableau1 extends Phaser.Scene{
         bstone.setTintFill;
         this.groundContainer.add(bstone);
         bstone.setScale(0.8)
-        let tree2=this.add.image(400,450, 'gtree2').setOrigin(0,1);
+        let tree2=this.add.image(400,370, 'gtree2').setOrigin(0,1);
         tree2.setTintFill
         this.groundContainer.add(tree2);
-        let treee2=this.add.image(150,430, 'gtree2').setOrigin(0,1);
+        tree2.setScale(0.7)
+        let treee2=this.add.image(105,430, 'gtree2').setOrigin(0,1);
         treee2.setTintFill
         this.groundContainer.add(treee2);
         treee2.flipX=true;
+        let water=this.add.image(550,615, 'gwater').setOrigin(0,1);
+        water.setTintFill
+        this.groundContainer.add(water);
         let box=this.add.image(655,357, 'gbox2').setOrigin(0,1);
         box.setTintFill
         this.groundContainer.add(box);
@@ -155,9 +222,22 @@ class Tableau1 extends Phaser.Scene{
         let left=this.add.image(900,750, 'gleft').setOrigin(0,1);
         left.setTintFill
         this.groundContainer.add(left);
-        let water=this.add.image(530,630, 'gwater').setOrigin(0,1);
-        water.setTintFill
-        this.groundContainer.add(water);
+
+        let gstone1=this.add.image(900,350, 'gstone1').setOrigin(0,-0.8);
+        gstone1.setTintFill
+        this.groundContainer.add(gstone1);
+        gstone1.flipX=true
+        gstone1.angle=-10
+
+
+        let gstonee1=this.add.image(517,336, 'gstone1').setOrigin(0,0);
+        gstonee1.setTintFill
+        this.groundContainer.add(gstonee1);
+
+        let gspike1=this.add.image(602,560, 'gspike1').setOrigin(0,1);
+        gspike1.setTintFill
+        this.groundContainer.add(gspike1);
+        gspike1.setScale(1.6)
 
 
 
@@ -168,7 +248,7 @@ class Tableau1 extends Phaser.Scene{
          * Terrain 2
          * @type {Phaser.GameObjects.Image}
          */
-        let gMid2=this.add.image(gMid1.x+gMid1.width+1,350, 'gMid').setOrigin(0,0); //on rajoute 1 px pour l'exemple
+        let gMid2=this.add.image(gMid1.x+gMid1.width,350, 'gMid').setOrigin(0,0); //on rajoute 1 px pour l'exemple ((gMid1.x+gMid1.width+1)
         this.groundContainer.add(gMid2);
         /**
          * Terrain 3
@@ -204,7 +284,7 @@ class Tableau1 extends Phaser.Scene{
             frameRate: 16,
             repeat: -1
         });
-        this.filterFilm.play('film');
+        this.filterbgAnimationA.play('film');
 
         //TODO élève faire une animation du même genre que filter mais pour bgAnimationA
 
