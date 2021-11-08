@@ -363,7 +363,7 @@ class Tableau1 extends Phaser.Scene{
          * Vitesse de déplacement du décor
          * @type {number}
          */
-        this.speed=9; ///CHANGER A 0
+        this.speed=0; ///CHANGER A 0
         //initialise ce qui se passe avec le clavier
         this.initKeyboard();
         // Définit l'espace de déplacement de la caméra
