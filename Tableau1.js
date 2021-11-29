@@ -84,6 +84,9 @@ class Tableau1 extends Phaser.Scene{
             this.load.image('fly'+i, 'assets/enemy2/idle/fly'+i+'.png');
         }
 
+        for(let i=1;i<=10;i++) {
+            this.load.image('id'+i, 'assets/boy4/idle2/id'+i+'.png');
+        }
     }
 
 
@@ -454,7 +457,25 @@ class Tableau1 extends Phaser.Scene{
         this.climb.play("layer")
 
 
-
+        this.idle2 = this.add.sprite(125, 1, 'id1').setOrigin(0,0);
+        this.anims.create({
+            key: 'id',
+            frames: [
+                {key:'id1'},
+                {key:'id2'},
+                {key:'id3'},
+                {key:'id4'},
+                {key:'id5'},
+                {key:'id6'},
+                {key:'id7'},
+                {key:'id8'},
+                {key:'id9},
+                {key:'id10'},
+            ],
+            frameRate: 16,
+            repeat: -1
+        });
+        this.climb.play("id")
 
         ///this.filterbgAnimationA.play('film');
 
